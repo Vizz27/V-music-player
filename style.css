@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+*{ box-sizing:border-box; }
+body{
+  font-family:"Open Sans",sans-serif;
+  margin:0;
+  background: linear-gradient(180deg, #fbfbfb 0%, #f7f2f3 100%);
+  color:#222;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  padding:28px;
+}
+
+.app-header{ text-align:center; margin-bottom:18px; }
+.app-header h1{ margin:0; font-size:24px; letter-spacing:1px; }
+.app-header .tagline{ margin:6px 0 0; color:#666; font-size:13px; }
+
+/* Layout grid: left fixed width, right flexible */
+.player-wrap{
+  width:980px;
+  max-width:96%;
+  display:grid;
+  grid-template-columns: 360px 1fr;
+  gap:24px;
+  align-items:start;
+  margin-top:6px;
+}
+
+/* Left: current player card */
+.current-player .player-card{
+  background:#fff;
+  padding:18px;
+  border-radius:14px;
+  box-shadow: 0 12px 30px rgba(120,70,100,0.08);
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  min-height:260px;
+}
+
+/* cover */
+.cover-dot{
+  width:220px;
+  height:220px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  background: linear-gradient(135deg,#f6e9ef,#fff);
+  flex-shrink:0;
+}
+.cover-dot img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition: transform 0.6s linear;
+  transform-origin:50% 50%;
+  border-radius:8px;
+}
+.player.playing .cover-dot img{
+  animation:spin 6s linear infinite;
+}
+@keyframes spin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
+
+/* right side inside card */
+.info-controls{ flex:1; display:flex; flex-direction:column; gap:10px; }
+.music-info h2{ margin:0; font-size:18px; }
+.artist{ margin:4px 0 10px; color:#666; font-size:13px; }
+
+.progress-container{ width:100%; height:8px; background:#eee; border-radius:8px; cursor:pointer; overflow:hidden; }
+.progress{ height:100%; width:0%; background: linear-gradient(90deg,#ff7a9a,#ffb199); border-radius:8px; transition:width 0.12s linear; }
+
+.time{ display:flex; justify-content:space-between; font-size:12px; color:#666; margin-top:6px; }
+
+.controls{ display:flex; align-items:center; gap:18px; margin-top:14px; }
+.action-btn{ border:0; background:#fff; cursor:pointer; font-size:18px; padding:8px; border-radius:8px; box-shadow:0 6px 10px rgba(120,70,100,0.05); }
+.action-btn i{ pointer-events:none; }
+.action-btn-big{ font-size:26px; padding:12px 14px; }
+
+/* extra (volume) */
+.extra{ margin-top:12px; display:flex; align-items:center; gap:8px; color:#555; font-size:13px; }
+.extra input[type=range]{ width:140px; }
+
+/* RIGHT: playlist card */
+.playlist-wrap .playlist{
+  background:#fff;
+  padding:18px;
+  border-radius:14px;
+  box-shadow: 0 12px 30px rgba(120,70,100,0.06);
+  max-height:640px;
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* header inside playlist */
+.playlist-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.playlist-header h3{ margin:0; }
+.playlist-count{ color:#777; font-size:13px; }
+
+/* playlist items */
+.playlist-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.playlist-list li{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px; border-radius:10px; cursor:pointer; transition:background .12s, transform .08s;
+  border:1px solid rgba(0,0,0,0.03);
+  background: linear-gradient(180deg,#fff,#fff);
+}
+.playlist-list li:hover{ background:#fff7f9; transform:translateY(-2px); }
+.playlist-list li .meta{ display:flex; gap:12px; align-items:center; }
+.playlist-list li .meta img{ width:56px; height:56px; object-fit:cover; border-radius:8px; }
+.playlist-list li .meta .text{ display:flex; flex-direction:column; }
+.playlist-list li.playing{
+  background: linear-gradient(90deg,#fff0f4,#fff);
+  box-shadow: 0 6px 18px rgba(120,70,100,0.04);
+  border-color: rgba(255,110,140,0.18);
+}
+
+/* small screens: stack vertically */
+@media (max-width:860px){
+  .player-wrap{ grid-template-columns: 1fr; gap:14px; }
+  .current-player .player-card{ flex-direction:row; align-items:flex-start; }
+  .cover-dot{ width:140px; height:140px; }
+  .playlist-wrap .playlist{ max-height:420px; }
+}
